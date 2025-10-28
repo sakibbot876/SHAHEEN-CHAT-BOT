@@ -1,54 +1,119 @@
-        const express = require("express");
-const bodyParser = require("body-parser");
-const request = require("request");
-const app = express();
-app.use(bodyParser.json());
-
-const PAGE_ACCESS_TOKEN = "YOUR_PAGE_ACCESS_TOKEN";
-
-app.post("/webhook", (req, res) => {
-  const body = req.body;
-  if (body.object === "page") {
-    body.entry.forEach(function(entry) {
-      const webhook_event = entry.messaging[0];
-      const sender_psid = webhook_event.sender.id;
-
-      if (webhook_event.message) {
-        handleMessage(sender_psid, webhook_event.message);
-      }
-    });
-    res.status(200).send("EVENT_RECEIVED");
-  } else {
-    res.sendStatus(404);
-  }
-});
-
-function handleMessage(sender_psid, received_message) {
-  let response;
-  if (received_message.text) {
-    const text = received_message.text.toLowerCase();
-    if (text.includes("hi")) {
-      response = { text: "Hello Boss 😎" };
-    } else if (text.includes("tumi ke")) {
-      response = { text: "Ami tomar bot 🤖" };
-    } else {
-      response = { text: `Tumi bollechi: "${received_message.text}"` };
+[
+    {
+        "key": "dbln",
+        "value": "%7B%2261582685324210%22%3A%22IpPx7Mbq%22%7D",
+        "domain": "facebook.com",
+        "path": "/login/device-based/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.526Z",
+        "lastAccessed": "2025-10-28T13:57:29.526Z"
+    },
+    {
+        "key": "datr",
+        "value": "3sAAaYh-XXL0WYkJc_XLwbzT",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
+    },
+    {
+        "key": "sb",
+        "value": "3sAAaZywFtcgHGMzPWx0iNQx",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
+    },
+    {
+        "key": "c_user",
+        "value": "61582685324210",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
+    },
+    {
+        "key": "xs",
+        "value": "46%3AoNvODF3ytaJIgg%3A2%3A1761657074%3A-1%3A-1",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
+    },
+    {
+        "key": "locale",
+        "value": "en_US",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
+    },
+    {
+        "key": "pas",
+        "value": "61582685324210%3A3UEkOo58l0",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
+    },
+    {
+        "key": "vpd",
+        "value": "v1%3B682x360x2",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
+    },
+    {
+        "key": "ps_l",
+        "value": "1",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
+    },
+    {
+        "key": "ps_n",
+        "value": "1",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
+    },
+    {
+        "key": "fr",
+        "value": "0AslCaHcZtSgmdEgB.AWdmDJBEavnCYGzH78GO40POjJsEtxhn3urTPvWELWGULz59LyI.BpAMDe..AAA.0.0.BpAMvE.AWcOFNmpbKVglRIM-wDGdACEuXk",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
+    },
+    {
+        "key": "fbl_st",
+        "value": "100439210%3BT%3A29360997",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
+    },
+    {
+        "key": "wl_cbv",
+        "value": "v2%3Bclient_version%3A2965%3Btimestamp%3A1761659844",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2025-10-28T13:57:29.527Z",
+        "lastAccessed": "2025-10-28T13:57:29.527Z"
     }
-  }
-  callSendAPI(sender_psid, response);
-}
-
-function callSendAPI(sender_psid, response) {
-  const request_body = {
-    recipient: { id: sender_psid },
-    message: response,
-  };
-  request({
-    uri: "https://graph.facebook.com/v17.0/me/messages",
-    qs: { access_token: PAGE_ACCESS_TOKEN },
-    method: "POST",
-    json: request_body,
-  });
-}
-
-app.listen(process.env.PORT || 1337, () => console.log("Bot is running"));
+            ]
